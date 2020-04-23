@@ -1,26 +1,31 @@
-//step 1
-$.ajax({
-    url: 'server.php',
-    method: 'GET',
-    success: function(data){
-        var mesi = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Semptember', 'October', 'November', 'December'];
-        var ctx = $('#line-chart');
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: mesi,
-                datasets: [{
-                    label: 'My First dataset',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: data
-                }]
-            }
-        });
-    },
-    error: function(){
-        alert('errore');
-    }
+//step2
+//funzioni che crea due grafici milestone2 con tipo di grafico in ingresso
+creaGrafico('line');
+creaGrafico('pie');
 
-
-});
+//chiamata ajax richiamata da funzione
+function creaGrafico(type){
+    var url = 'server' + type + '.php';
+    var selettore = '#' + type;
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function(data){
+            var ctx = $(selettore);
+            var chart = new Chart(ctx, {
+                type: data.type,
+                data: {
+                    labels: data.label,
+                    datasets: [{
+                        data: data.data,
+                        label: 'Vendite',
+                        backgroundColor: ['grey', 'orange', 'green', 'lightgrey']
+                    }]
+                }
+            });
+        },
+        error: function(){
+            alert('errore');
+        }
+    });
+};

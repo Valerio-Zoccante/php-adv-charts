@@ -9,7 +9,10 @@
     </head>
     <body>
         <div class="container">
-            <canvas id="line-chart"></canvas>
+            <canvas id="line"></canvas>
+        </div>
+        <div class="container">
+            <canvas id="pie"></canvas>
         </div>
 
         <script src="js/main.js" charset="utf-8"></script>
