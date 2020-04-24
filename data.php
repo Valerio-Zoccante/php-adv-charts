@@ -1,5 +1,4 @@
- <?php
-
+<?php
     $graphs = [
         'fatturato' => [
             'type' => 'line',
@@ -43,6 +42,7 @@
     };
     //aggiungo mesi al grafico3
     $graphs['team_efficiency']['asseX'] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Semptember', 'October', 'November', 'December'];
-    //creo json da passare api
-    $grafici = json_encode($graphs);
+
+     //creo json da passare api
+     $grafici = json_encode($graphs);      //filtrato
  ?>
