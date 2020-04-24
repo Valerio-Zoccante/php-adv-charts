@@ -14,6 +14,9 @@
         <div class="container">
             <canvas id="pie"></canvas>
         </div>
+        <div class="container">
+            <canvas id="multi-line"></canvas>
+        </div>
 
         <script src="js/main.js" charset="utf-8"></script>
     </body>

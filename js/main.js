@@ -1,31 +1,67 @@
-//step2
-//funzioni che crea due grafici milestone2 con tipo di grafico in ingresso
-creaGrafico('line');
-creaGrafico('pie');
+//step3
 
-//chiamata ajax richiamata da funzione
-function creaGrafico(type){
-    var url = 'server' + type + '.php';
-    var selettore = '#' + type;
-    $.ajax({
-        url: url,
-        method: 'GET',
-        success: function(data){
-            var ctx = $(selettore);
-            var chart = new Chart(ctx, {
-                type: data.type,
+//chiamo api con i dati dei grafici
+$.ajax({
+    url: 'server.php',
+    method: 'GET',
+    success: function(data){
+        valutaRisposta(data);
+    },
+    error: function(){
+        alert('errore');
+    }
+});
+
+function valutaRisposta(risposta) {
+    for (var grafico in risposta) {
+        if(grafico == 'fatturato') {
+            var template = risposta[grafico];
+            var chart = new Chart($('#line'), {
+                type: template.type,
                 data: {
-                    labels: data.label,
+                    labels: template.asseX,
                     datasets: [{
-                        data: data.data,
-                        label: 'Vendite',
-                        backgroundColor: ['grey', 'orange', 'green', 'lightgrey']
+                        label: grafico,
+                        backgroundColor: template.colore,
+                        data: template.data
                     }]
                 }
-            });
-        },
-        error: function(){
-            alert('errore');
+            })
+        } else if (grafico == 'fatturato_by_agent') {
+            var template = risposta[grafico];
+            var chart = new Chart($('#pie'), {
+                type: template.type,
+                data: {
+                    labels: template.nomi,
+                    datasets: [{
+                        backgroundColor: template.colore,
+                        data: template.valori
+                    }]
+                }
+            })
+        } else if (grafico == 'team_efficiency') {
+            var template = risposta[grafico];
+            var chart = new Chart($('#multi-line'), {
+                type: template.type,
+                data: {
+                    labels: template.asseX,
+                    datasets: [{
+                        label: 'Team1',
+                        borderColor: template['colore'][0],
+                        data: template['data']['Team1']
+                    },
+                    {
+                        label: 'Team2',
+                        borderColor: template['colore'][1],
+                        data: template['data']['Team2']
+                    },
+                    {
+                        label: 'Team3',
+                        borderColor: template['colore'][2],
+                        data: template['data']['Team3']
+                    }],
+                }
+            })
         }
-    });
+    }
 };
