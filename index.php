@@ -1,23 +1,3 @@
-<!-- < ?php
-     $accesso = $_GET['level'];     //non riesco a portarmi questo valore nell'altra pagina
-     include 'data.php';
-     $newdata = []; //nuovo api filtrato degli accessi
-
-     if ($accesso == "guest") {
-         $newdata = $graphs['fatturato'];
-         $newdata = $graphs['fatturato_by_agent'];
-         $newdata = $graphs['team_efficiency'];
-     } elseif ($accesso == "employee") {
-         $newdata = $graphs['fatturato_by_agent'];
-         $newdata = $graphs['team_efficiency'];
-     } elseif ($accesso == "clevel") {
-         $newdata = $graphs['team_efficiency'];
-     }
-  ?> -->
-
-
-
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
